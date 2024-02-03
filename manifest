@@ -51,4 +51,5 @@ export FILES_TO_DELETE="\
 "
 
 postinstallhook() {
+	:
 }
