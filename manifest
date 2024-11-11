@@ -17,6 +17,7 @@ export PACKAGES="\
 	gamescope \
 	lightdm \
 	networkmanager \
+	pipewire \
 	steam \
 	sudo \
 "
