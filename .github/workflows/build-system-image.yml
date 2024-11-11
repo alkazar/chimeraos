@@ -32,10 +32,6 @@ jobs:
         with:
             name: AUR-packages
             path: aur-pkgs/
-      - uses: actions/download-artifact@v3
-        with:
-            name: Packages
-            path: pkgs/
       - name: Build system image
         id: build_image
         run: |
