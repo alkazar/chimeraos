@@ -64,11 +64,10 @@ mkdir ${BUILD_PATH}/own_pkgs
 mkdir ${BUILD_PATH}/extra_pkgs
 
 cp -rv aur-pkgs/*.pkg.tar* ${BUILD_PATH}/extra_pkgs
-cp -rv pkgs/*.pkg.tar* ${BUILD_PATH}/own_pkgs
 
 if [ -n "${PACKAGE_OVERRIDES}" ]; then
-	wget --directory-prefix=/tmp/extra_pkgs ${PACKAGE_OVERRIDES}
-	cp -rv /tmp/extra_pkgs/*.pkg.tar* ${BUILD_PATH}/own_pkgs
+	wget --directory-prefix=/tmp/override_pkgs ${PACKAGE_OVERRIDES}
+	cp -rv /tmp/override_pkgs/*.pkg.tar* ${BUILD_PATH}/own_pkgs
 fi
 
 
@@ -103,8 +102,10 @@ else
 fi
 
 # install own override packages
-pacman --noconfirm -U --overwrite '*' /own_pkgs/*
-rm -rf /var/cache/pacman/pkg
+if [ -n "$(ls -A '/own_pkgs')" ]; then
+	pacman --noconfirm -U --overwrite '*' /own_pkgs/*
+	rm -rf /var/cache/pacman/pkg
+fi
 
 # install packages
 pacman --noconfirm -S --overwrite '*' --disable-download-timeout ${PACKAGES}
