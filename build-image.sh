@@ -179,7 +179,9 @@ DOCUMENTATION_URL="${DOCUMENTATION_URL}"
 BUG_REPORT_URL="${BUG_REPORT_URL}"' > /etc/os-release
 
 # install extra certificates
-trust anchor --store /extra_certs/*.crt
+if [ -n "$(ls -A '/extra_certs')" ]; then
+	trust anchor --store /extra_certs/*.crt
+fi
 
 # run post install hook
 postinstallhook
